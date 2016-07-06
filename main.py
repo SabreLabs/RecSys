@@ -4,18 +4,15 @@ import pandas as pd
 from sklearn import linear_model
 
 def calculateAccuracy(X,Y):
-	predictions = []
-	i = 0
-	for x in X:
-		p = alg.predict([x]).astype(float)
-		predictions.append(p[0])
-
+	predictions = alg.predict(X).astype(float)
 
 	false_positives = float(sum([1 if p != y and p == 1 else 0 for p,y in zip(predictions,Y)]))
+	false_negatives = float(sum([1 if p != y and p == 0 else 0 for p,y in zip(predictions,Y)]))
 	correct = float(sum([1 if p == y else 0 for p,y in zip(predictions,Y)]))
 	accuracy = correct / len (Y)
 
 	print "False Positives: %f" % (float(false_positives)) 
+	print "False Negatives: %f" % (float(false_negatives))
 	print "Correct: %f / %f" % (correct, len(Y))
 	return accuracy
 
